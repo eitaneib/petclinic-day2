@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    anthos-migrate.cloud.google.com/type: tomcat-container
+    app: tomcat-tomcat-3db004ef
+    migrate-for-anthos-optimization: "true"
+    migrate-for-anthos-version: m2c-cli-0.2.0
+  name: tomcat-tomcat-3db004ef
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      anthos-migrate.cloud.google.com/type: tomcat-container
+      app: tomcat-tomcat-3db004ef
+      migrate-for-anthos-optimization: "true"
+      migrate-for-anthos-version: m2c-cli-0.2.0
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        anthos-migrate.cloud.google.com/type: tomcat-container
+        app: tomcat-tomcat-3db004ef
+        migrate-for-anthos-optimization: "true"
+        migrate-for-anthos-version: m2c-cli-0.2.0
+    spec:
+      containers:
+      - image: tomcat-tomcat-3db004ef-image
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+        name: tomcat-tomcat-3db004ef
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+        resources:
+          limits:
+            memory: 2048M
+          requests:
+            memory: 1280M
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    anthos-migrate.cloud.google.com/type: tomcat-container
+    migrate-for-anthos-optimization: "true"
+    migrate-for-anthos-version: m2c-cli-0.2.0
+  name: tomcat-tomcat-3db004ef
+spec:
+  ports:
+  - name: tomcat-tomcat-3db004ef-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: tomcat-tomcat-3db004ef
+status:
+  loadBalancer: {}

@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+build:
+    artifacts:
+        - image: tomcat-tomcat-3db004ef-image
+          context: tomcat-3db004ef/tomcat-tomcat-3db004ef
+          docker:
+            dockerfile: Dockerfile
+deploy:
+    kubectl:
+        manifests:
+            - tomcat-3db004ef/tomcat-tomcat-3db004ef/deployment_spec.yaml
+profiles:
+    - name: cloudbuild
+      build:
+        googleCloudBuild:
+            timeout: 3600s
+            logStreamingOption: STREAM_OFF
