@@ -5,6 +5,8 @@ build:
         - image: tomcat-tomcat-3db004ef-image
           context: tomcat-3db004ef/tomcat-tomcat-3db004ef
           docker:
+            buildArgs:
+              PETCLINIC_WAR_APP: "{{.PETCLINIC_WAR_APP}}"
             dockerfile: Dockerfile
 deploy:
     kubectl:
