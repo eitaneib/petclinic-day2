@@ -1,4 +1,4 @@
-FROM tomcat:8.5-jre305-temurin
+FROM tomcat:8.5-jre11-temurin
 
 ARG PETCLINIC_WAR_APP=apps/petclinic.war
 
